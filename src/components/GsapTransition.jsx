@@ -6,7 +6,7 @@ import SellerDashboard from "../pages/SellerDashboard";
 import BuyerDashboard from "../pages/BuyerDashboard";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 const GsapTransition = () => {
   const nodeRef = useRef(null);
@@ -23,7 +23,7 @@ const GsapTransition = () => {
     //agar nodeRef ki value define nahi hogy to gsap appy nahi hoga.
     if (nodeRef.current) {
       gsap.fromTo(nodeRef.current, { opacity: 0 }, { opacity: 1, duration: 1 });
-      toast.success("Page Changed");
+      //toast.success("Page Changed");
     }
   }, [location]);
   // when we keep dependency array empty it means that: bhai ye page call hoga jab bhi tum refresh karoge.
