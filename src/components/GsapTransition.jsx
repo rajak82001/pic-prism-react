@@ -16,7 +16,7 @@ const GsapTransition = () => {
     console.log("The reference is: " , nodeRef); */
   }
 
-  // jab bhi loaction change hoga tab ye use effect run hoga, beacuse ye useEffect hook ko hum dependent banane wallw hai location ke upar
+  // jab bhi loaction change hoga tab ye use effect run hoga, beacuse ye useEffect hook ko hum dependent banane wallw hai location ke upar.
 
   //when a page renders, useEffects runs first
   useEffect(() => {
