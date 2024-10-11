@@ -50,7 +50,7 @@ const Login = () => {
           </div>
 
           <button type="submit" className="w-full py-2 px-4 rounded-md shadow-md text-sm font-medium text-white bg-black">
-            Sign up
+            Log In
           </button>
         </form>
       </div>

@@ -1,11 +1,45 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import toast from 'react-hot-toast';
 
 const Signup = () => {
+
+  const navigate = useNavigate("");
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [accountType, setAccountType] = useState("");
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    try {
+      //const res = await axios.post("/signup");
+      const res = await axios.post(import.meta.env.VITE_API_URL + "/signup", {username,
+        email,
+        password,
+        accountType,
+      });
+      const data = await res.data;
+      if(data.success === true) {
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setAccountType("");
+        toast.success(data.message);
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
+
   return (
     <div className="mt-20 sm:mt-10 min-h-screen flex items-center justify-center w-full">
       <div className="bg-white shadow-md rounded-3xl px-5 py-6 w-full sm:w-[27vw]">
         <h1 className="text-2xl font-bold text-center mb-4">Let's Connect!</h1>
-        <form>
+        <form onSubmit={handleSignup}>
           {/* for username */}
           <div className="mb-4">
             <label
@@ -19,6 +53,8 @@ const Signup = () => {
               name="name"
               id="name"
               placeholder="coder786"
+              value={username}
+              onChange={ (e) => setUsername(e.target.value)}
               className="shadow-md rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-black focus:border-black"
             />
           </div>
@@ -36,6 +72,8 @@ const Signup = () => {
               name="email"
               id="email"
               placeholder="your@email.com"
+              value={email}
+              onChange={ (e) => setEmail(e.target.value)}
               className="shadow-md rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-black focus:border-black"
             />
           </div>
@@ -53,6 +91,8 @@ const Signup = () => {
               name="password"
               id="password"
               placeholder="Enter your password"
+              value={password}
+              onChange={ (e) => setPassword(e.target.value)}
               className="shadow-md rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-black focus:border-black"
             />
           </div>
@@ -65,7 +105,7 @@ const Signup = () => {
             >
               Select Your Account Type
             </label>
-            <select className="shadow-md rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-black focus:border-black">
+            <select onChange={ (e) => setAccountType(e.target.value)} className="shadow-md rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-black focus:border-black">
               <option value="buyer">Buyer</option>
               <option value="seller">Seller</option>
             </select>
