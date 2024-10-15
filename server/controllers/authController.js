@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const { generateAccessToken } = require("../helpers/accessToken");
 const { generateRefreshToken } = require("./refreshToken");
 
-const signup = async (req, res) => {
+const signup = async(req, res) => {
   const { username, email, password, accountType } = req.body;
 
   try {
@@ -55,6 +55,8 @@ const login = async (req, res) => {
 
     const accessToken = generateAccessToken(data);
     const refreshToken = generateRefreshToken(data);
+   // console.log("accessToken: ",accessToken) 
+   //giving undefine value
 
     return res.status(200).json({
       success: true,
