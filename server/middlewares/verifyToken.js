@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 // middleware has req, res, next
-const verifyToken = async(req, res, next)=>{
+const verifyToken = async (req, res, next)=>{
    const authHeader = req.header("Authorization");
    const token = authHeader && authHeader.split(" ")[1];
 
@@ -25,9 +25,10 @@ const verifyToken = async(req, res, next)=>{
     .status(500)
     .json({ success: false, message: "Internal Server Error"});
    }
-}
+};
 
 // Bearer fef435huj6h5j6h56456j5
 // we have to split -> " "
 // ["Bearer", "fef435huj6h5j6h56456j5"]
 // [1]
+
