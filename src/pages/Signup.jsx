@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 const Signup = () => {
 
-  const navigate = useNavigate("");
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
