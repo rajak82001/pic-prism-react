@@ -27,6 +27,8 @@ const verifyToken = async (req, res, next)=>{
    }
 };
 
+module.exports = { verifyToken };
+
 // Bearer fef435huj6h5j6h56456j5
 // we have to split -> " "
 // ["Bearer", "fef435huj6h5j6h56456j5"]
