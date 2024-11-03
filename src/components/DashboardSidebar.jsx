@@ -21,8 +21,8 @@ const DashboardSidebar = () => {
   return (
     <nav
       className={` fixed z-10  ${
-        !sidebar == true ? "-transalte-x-[500px] sm:translate-x-0" : ""
-      } flex text-lg font-semibold bg-white shadow-lg flex-col gap-2 w-fit min-h-screen p-3 list-none justify-between items-center`}
+        !sidebar == true ? "-translate-x-[500px] sm:translate-x-0" : "translate-x-0"
+      } ease-in-out duration-300  flex sm:static text-lg font-semibold bg-white shadow-lg flex-col gap-2 w-fit min-h-screen p-3 list-none justify-between items-center`}
     >
       <div>
         {/* circle with my names first letter */}
@@ -100,7 +100,7 @@ const DashboardSidebar = () => {
       {/* logout button */}
       <li
         className="w-full rounded-lg px-2 hover:bg-black hover:text-white cursor-pointer transition-all ease-linear duration-300 hover:scale-105 flex gap-2 justify-start items-center"
-        onClick={() => dispatch(logout())}
+        onClick={ () => dispatch(logout())}
       >
         <IoLogOut />
         Logout
