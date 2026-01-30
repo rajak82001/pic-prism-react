@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
+import useUpload from "../hooks/useUpload";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import ProgressBar from "@ramonak/react-progress-bar";
-import toast from "react-hot-toast";
-import axios from "axios";
-import useUpload from "../hooks/useUpload";
 
 const ImageAdd = () => {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [progress, setProgress] = useState(0);
 
   const author = useSelector((state) => state.auth.author);
@@ -16,9 +16,8 @@ const ImageAdd = () => {
     setImage(file);
   };
 
-  const onUploadProgress = (progressEvent) => {
-    setProgress(Math.round(progressEvent.loaded * 100) / progressEvent.total);
-  };
+  const onUploadProgress = (progressEvent) =>
+    setProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
 
   const addPost = async (e) => {
     e.preventDefault();
@@ -26,14 +25,16 @@ const ImageAdd = () => {
       const title = e.target.title.value;
       const price = e.target.price.value;
 
-      if (!title || !price) return toast.error("please fill all the fields.");
+      if (!title || !price) return toast.error("Please fill all the fields.");
       if (title.trim === "" || price.trim === "")
-        return toast.error("please fill all the fields");
+        return toast.error("Please fill all the feilds");
 
       const { public_id, secure_url } = await useUpload({
         image,
         onUploadProgress,
       });
+
+      if (!public_id || !secure_url) return toast.error("Image upload failed");
 
       const res = await axios.post(
         import.meta.env.VITE_API_URL + "/post/create",
@@ -46,7 +47,7 @@ const ImageAdd = () => {
         },
         {
           headers: {
-            authorization: "Bearer " + localStorage.getItem("accessToken"),
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
           },
         }
       );
@@ -59,14 +60,15 @@ const ImageAdd = () => {
         setProgress(0);
       }
     } catch (error) {
+      console.log(error);
       return toast.error(error.response.data.message);
     }
   };
 
   return (
     <div className="p-5 bg-white mx-9 rounded-2xl shadow-md">
-      <h2 className="text-xl font-bold gap-2 my-4">Add New Product</h2>
-      <form className="grid grid-cols-1 gap2 my-4" onSubmit={addPost}>
+      <h2 className="text-xl font-bold">Add New Product</h2>
+      <form className="gird grid-cols-1 gap-2 my-4" onSubmit={addPost}>
         <img
           src={`${
             image
@@ -76,7 +78,9 @@ const ImageAdd = () => {
           alt="this picture"
           className="w-[350px] h-[25vh] sm:h-[30vh] rounded-lg object-cover"
         />
-        {/* Add a progress bar */}
+
+        {/* Show a progress bar */}
+
         {progress > 0 && (
           <ProgressBar
             completed={progress}

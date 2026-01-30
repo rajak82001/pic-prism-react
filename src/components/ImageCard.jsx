@@ -1,14 +1,16 @@
 
 const ImageCard = ({ id, img, title, price, author, icon1, icon2 }) => {
   return (
-    <div className="rounded-lg bg-white shadow-lg p-2">
+    <div className="rounded-lg bg-white shadow-lg p-2 h-fit">
       <div className="w-full h-[200px] overflow-hidden rounded-2xl">
         <img
           src={img}
           alt={title}
           className="w-full h-full hover:scale-105 transition-all ease-linear duration-300 transform cursor-pointer"
         />
+        {console.log("Author in ImageCARD :", author)}
       </div>
+
 
       <p className="font-semibold text-white bg-black w-fit px-5 rounded-full text-sm mt-3">
         {"@"+ author.charAt(0).toUpperCase() + author.slice(1)}

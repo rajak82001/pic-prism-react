@@ -29,6 +29,7 @@ const useUpload = async ({ image, onUploadProgress }) => {
 
       const data = await res.data;
       if (!data) return console.log("Image upload failed");
+      // if (!data) return console.log(data);
       return data;
     } catch (error) {
       return error.message;
